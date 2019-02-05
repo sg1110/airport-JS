@@ -3,12 +3,18 @@ function Airport (weather = new Weather) {
   this.weather = weather
 }
 Airport.prototype.land = function(plane) {
-  if (this.weather.is_it_stormy() === true) {
+  if(this._full){
+    throw "Airport full!"
+  }
+
+  else if (this.weather.is_it_stormy() === true) {
     throw "Can't land - stormy weather!"
-  } else {
+    }
+
+  else {
     this.planes_landed.push(plane)
-  }  
-}
+    }
+};
 
 Airport.prototype.take_off = function(plane) {
 
@@ -19,4 +25,11 @@ Airport.prototype.take_off = function(plane) {
     {this.planes_landed = this.planes_landed.filter(function(landed_plane) {
       return landed_plane != plane;
     }); return ("Plane " + plane + " has left the airport")}
+  };
+
+Airport.prototype._full = function() {
+  if (this.planes_landed.length > 5)
+  { return true}
+  else { return false
   }
+};

@@ -1,4 +1,4 @@
-describe("Airport", function() {
+describe("Sunny Airport", function() {
   var airport;
 
   beforeEach(function() {
@@ -34,7 +34,7 @@ describe("Airport", function() {
 
 });
 
-describe("Airport", function() {
+describe("Stormy Airport", function() {
   var airport;
 
   beforeEach(function() {
@@ -58,4 +58,38 @@ describe("Airport", function() {
     });
   });
 
+});
+
+
+describe("Full airport", function() {
+  var airport;
+
+  beforeEach(function() {
+    weather = new Weather();
+    spyOn(weather,'is_it_stormy').and.returnValue(false);
+    airport_sunny = new Airport(weather);
+  });
+
+it ("should return true if there are 5 or more planes at the airport", function(){
+  airport_sunny.land("plane")
+  airport_sunny.land("plane")
+  airport_sunny.land("plane")
+  airport_sunny.land("plane")
+  airport_sunny.land("plane")
+  expect(airport_sunny._full()).toEqual(true)
+})
+
+it ("should return FALSE if there are 5 or more planes at the airport", function(){
+  expect(airport_sunny._full()).toEqual(false)
+})
+
+
+it("should prevent airport from landing if it is full", function(){
+  airport_sunny.land("plane")
+  airport_sunny.land("plane")
+  airport_sunny.land("plane")
+  airport_sunny.land("plane")
+  airport_sunny.land("plane")
+  expect(function(){airport_sunny.land("plane")}).toThrow("Airport full!");
+})
 });
