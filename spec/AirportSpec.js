@@ -42,11 +42,20 @@ describe("Airport", function() {
     spyOn(weather,'is_it_stormy').and.returnValue(true);
 
     airport_stormy = new Airport(weather);
-});
+  });
 
-  it("should throw an error because weather is stormy", function() {
-    airport_stormy.land("plane")
-    expect(function(){airport_stormy.take_off("plane")}).toThrow(("It is currently stormy - No Go!"));
+  it("should throw an error on landing because weather is stormy", function() {
+    expect(function(){airport_stormy.land("plane")}).toThrow(("Can't land - stormy weather!"));
+  });
+
+  describe ("airport with plane", function() {
+    beforeEach(function() {
+    spyOn(airport_stormy, 'planes_landed').and.returnValue(["plane"])
+    });
+
+    it("should throw an error on take off because weather is stormy", function() {
+      expect(function(){airport_stormy.take_off("plane")}).toThrow(("It is currently stormy - No Go!"));
+    });
   });
 
 });
