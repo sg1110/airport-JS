@@ -25,4 +25,8 @@ describe("Airport", function() {
     expect(airport.planes_landed).toEqual(["plane2"])
   });
 
+  it("should confirm that plane has left the airport", function() {
+    airport.land("plane")
+    expect(airport.take_off("plane")).toEqual("Plane plane has left the airport")
+  });
 });
